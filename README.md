@@ -49,7 +49,7 @@ To classify the images into their respective categories, I built a CNN model (Co
 
 The architecture of our model is:
 The architecture of our model is:
-
+```
 2 Conv2D layer (filter=32, kernel_size=(5,5), activation=”relu”)
 MaxPool2D layer ( pool_size=(2,2))
 Dropout layer (rate=0.25)
@@ -60,6 +60,7 @@ Flatten layer to squeeze the layers into 1 dimension
 Dense Fully connected layer (256 nodes, activation=”relu”)
 Dropout layer (rate=0.5)
 Dense layer (43 nodes, activation=”softmax”)
+```
 
 I then compiled the model with Adam optimizer which performs well and loss is “categorical_crossentropy” because I had multiple classes to categorize.
 
@@ -90,11 +91,11 @@ My dataset had a test folder and in a test.csv file, it had the details related 
 
 In the end, I saves the model that I’ve trained using the Keras model.save() function.
 
-model.save(‘traffic_classifier.h5’) 
+`model.save(‘traffic_classifier.h5’)`
 .
 
 This is how I finally implemented it.
-
+```
 import numpy as np  
 import pandas as pd  
 import matplotlib.pyplot as plt 
@@ -210,14 +211,14 @@ model.save(‘traffic_classifier.h5’)
 .
 
 .
-
+```
 Traffic Signs Classifier GUI
 Now I will show you how I built a graphical user interface for my traffic signs classifier with Tkinter. Tkinter is a GUI toolkit in the standard python library. I made a new file in the project folder and copied the below code. Saved it as gui.py and executed the code by typing python gui.py in the command line.
 
 In this file, I first loaded the trained model ‘traffic_classifier.h5’ using Keras. And then I built the GUI for uploading the image and used a button to classify which calls the classify() function. The classify() function is converting the image into the dimension of shape (1, 30, 30, 3). This is because to predict the traffic sign I have to provide the same dimension I have used when I built the model. Then I predict the class, the model.predict_classes(image) returns me a number between (0-42) which represents the class it belongs to. I used the dictionary to get the information about the class. Here’s the code for the gui.py file.
 
 CODE:
-
+```
 import tkinter as tk 
 from tkinter import filedialog 
 from tkinter import * 
@@ -322,3 +323,4 @@ heading = Label(top, text="Know Your Traffic Sign",pady=20, font=('arial',20,'bo
 heading.configure(background='#CDCDCD',foreground='#364156') 
 heading.pack() 
 top.mainloop() 
+```
