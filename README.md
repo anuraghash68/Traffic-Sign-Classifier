@@ -36,6 +36,54 @@ I converted the list into numpy arrays for feeding to the model.
 The shape of data is `(39209, 30, 30, 3)` which means that there are `39,209` images of size `30×30` pixels and the last 3 means the data contains colored images (RGB value).
 
 With the sklearn package, I used the `train_test_split()` method to split training and testing data.
+```Python
+import numpy as np  
+import pandas as pd  
+import matplotlib.pyplot as plt 
+import cv2 
+import tensorflow as tf 
+from PIL import Image 
+import os 
+from sklearn.model_selection import train_test_split 
+from keras.utils import to_categorical 
+from keras.models import Sequential, load_model 
+from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Dropout 
+ 
+data = [] 
+labels = [] 
+classes = 43 
+cur_path = os.getcwd() 
+ 
+#Retrieving the images and their labels  
+for i in range(classes): 
+  path = os.path.join(cur_path,'train',str(i)) 
+  images = os.listdir(path) 
+ 
+  for a in images: 
+    try: 
+      image = Image.open(path + '\\'+ a) 
+      image = image.resize((30,30)) 
+      image = np.array(image) 
+ 	  #sim = Image.fromarray(image) 
+ 	  data.append(image) 
+ 	  labels.append(i) 
+ 	except: 
+ 	  print("Error loading image") 
+ 
+#Converting lists into numpy arrays 
+data = np.array(data) 
+labels = np.array(labels) 
+ 
+print(data.shape, labels.shape) 
+#Splitting training and testing dataset 
+X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42) 
+ 
+print(X_train.shape, X_test.shape, y_train.shape, y_test.shape) 
+ 
+#Converting the labels into one hot encoding 
+y_train = to_categorical(y_train, 43) 
+y_test = to_categorical(y_test, 43) 
+```
 
 From the `keras.utils` package, I used `to_categorical` method to convert the labels present in `y_train` and `t_test` into one-hot encoding.
 
@@ -116,52 +164,6 @@ In the end, I saves the model that I’ve trained using the Keras `model.save()`
 
 This is how I finally implemented it.
 ```Python
-import numpy as np  
-import pandas as pd  
-import matplotlib.pyplot as plt 
-import cv2 
-import tensorflow as tf 
-from PIL import Image 
-import os 
-from sklearn.model_selection import train_test_split 
-from keras.utils import to_categorical 
-from keras.models import Sequential, load_model 
-from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Dropout 
- 
-data = [] 
-labels = [] 
-classes = 43 
-cur_path = os.getcwd() 
- 
-#Retrieving the images and their labels  
-for i in range(classes): 
-  path = os.path.join(cur_path,'train',str(i)) 
-  images = os.listdir(path) 
- 
-  for a in images: 
-    try: 
-      image = Image.open(path + '\\'+ a) 
-      image = image.resize((30,30)) 
-      image = np.array(image) 
- 	  #sim = Image.fromarray(image) 
- 	  data.append(image) 
- 	  labels.append(i) 
- 	except: 
- 	  print("Error loading image") 
- 
-#Converting lists into numpy arrays 
-data = np.array(data) 
-labels = np.array(labels) 
- 
-print(data.shape, labels.shape) 
-#Splitting training and testing dataset 
-X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, random_state=42) 
- 
-print(X_train.shape, X_test.shape, y_train.shape, y_test.shape) 
- 
-#Converting the labels into one hot encoding 
-y_train = to_categorical(y_train, 43) 
-y_test = to_categorical(y_test, 43) 
  
 #Building the model 
 model = Sequential() 
