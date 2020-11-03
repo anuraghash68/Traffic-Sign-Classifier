@@ -49,7 +49,7 @@ To classify the images into their respective categories, I built a CNN model (Co
 
 The architecture of our model is:
 The architecture of our model is:
-```
+```Python
 2 Conv2D layer (filter=32, kernel_size=(5,5), activation=”relu”)
 MaxPool2D layer ( pool_size=(2,2))
 Dropout layer (rate=0.25)
@@ -77,10 +77,30 @@ My model got a 95% accuracy on the training dataset. With matplotlib, I plotted 
 
 I. Plotting Accuracy
 
-
+```Python
+#plotting graphs for accuracy  
+plt.figure(0) 
+plt.plot(history.history['accuracy'], label='training accuracy') 
+plt.plot(history.history['val_accuracy'], label='val accuracy') 
+plt.title('Accuracy') 
+plt.xlabel('epochs') 
+plt.ylabel('accuracy') 
+plt.legend() 
+plt.show() 
+```
 II. Accuracy and Loss Graphs
 
-
+```Python
+ 
+plt.figure(1) 
+plt.plot(history.history['loss'], label='training loss') 
+plt.plot(history.history['val_loss'], label='val loss') 
+plt.title('Loss') 
+plt.xlabel('epochs') 
+plt.ylabel('loss') 
+plt.legend() 
+plt.show() 
+```
 .
 
 **STEP - 4
@@ -95,7 +115,7 @@ In the end, I saves the model that I’ve trained using the Keras `model.save()`
 .
 
 This is how I finally implemented it.
-```
+```Python
 import numpy as np  
 import pandas as pd  
 import matplotlib.pyplot as plt 
@@ -165,24 +185,8 @@ epochs = 15
 history = model.fit(X_train, y_train, batch_size=32, epochs=epochs, validation_data=(X_test, y_test)) 
 model.save("my_model.h5") 
  
-#plotting graphs for accuracy  
-plt.figure(0) 
-plt.plot(history.history['accuracy'], label='training accuracy') 
-plt.plot(history.history['val_accuracy'], label='val accuracy') 
-plt.title('Accuracy') 
-plt.xlabel('epochs') 
-plt.ylabel('accuracy') 
-plt.legend() 
-plt.show() 
- 
-plt.figure(1) 
-plt.plot(history.history['loss'], label='training loss') 
-plt.plot(history.history['val_loss'], label='val loss') 
-plt.title('Loss') 
-plt.xlabel('epochs') 
-plt.ylabel('loss') 
-plt.legend() 
-plt.show() 
+
+
  
 #testing accuracy on test dataset 
 from sklearn.metrics import accuracy_score 
@@ -218,7 +222,7 @@ Now I will show you how I built a graphical user interface for my traffic signs 
 In this file, I first loaded the trained model `‘traffic_classifier.h5’` using Keras. And then I built the GUI for uploading the image and used a button to classify which calls the `classify()` function. The `classify()` function is converting the image into the dimension of shape `(1, 30, 30, 3)`. This is because to predict the traffic sign I have to provide the same dimension I have used when I built the model. Then I predict the class, the` model.predict_classes(image)` returns me a number between `(0-42)` which represents the class it belongs to. I used the dictionary to get the information about the class. Here’s the code for the gui.py file.
 
 CODE:
-```
+```Python
 import tkinter as tk 
 from tkinter import filedialog 
 from tkinter import * 
