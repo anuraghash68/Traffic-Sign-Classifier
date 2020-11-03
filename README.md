@@ -2,7 +2,7 @@
 Build a model that will take image as input and able to recognise the sign of the image.
 
 
-TRAFFIC SIGNS RECOGNITION SYSTEM USING PYTHON
+**TRAFFIC SIGNS RECOGNITION SYSTEM USING PYTHON**
 
 Outline of the Project
 In this Python project, I built a deep neural network model that classified traffic signs present in the image into different categories. With this model, I was able to read and understand traffic signs which are a very important task for all autonomous vehicles.
@@ -13,37 +13,37 @@ https://www.kaggle.com/meowmeowmeowmeowmeow/gtsrb-german-traffic-sign
 
 Install all the python packages.
 here are they,
-Numpy,pandas,matplotlib,scikitlearn,PIL.
+`Numpy,pandas,matplotlib,scikitlearn,PIL.`
 
-STEPS INVOLVED IN BUILDING THE PROJECT
+**STEPS INVOLVED IN BUILDING THE PROJECT**
 
 I started with the project by downloading and unzip of the file from this link –
 https://drive.google.com/file/d/1BGDHe6qQwrBEgnl-tXTSKo6TvDj8U3wS/view
 
-I extracted the files into a folder such that I had a train, test and a meta folder. Then I created a Python script file and named it traffic_signs.py in the project folder.
+I extracted the files into a folder such that I had a train, test and a meta folder. Then I created a Python script file and named it `traffic_signs.py` in the project folder.
 
-STEP - 1
-Exploring the Dataset
+**STEP - 1
+Exploring the Dataset**
 
-My ‘train’ folder has 43 folders each representing a different class. I indexed the folders from 0 to 42. By using the OS module, I iterated over all the classes and appended images and their respective labels in the data and labels list.
+My ‘train’ folder has 43 folders each representing a different class. I indexed the folders from `0 to 42`. By using the OS module, I iterated over all the classes and appended images and their respective labels in the data and labels list.
 
-The PIL library is used to open image content into an array.
+The `PIL library` is used to open image content into an array.
 
 
 Finally, I stored all the images and their labels into lists (data and labels).
 I converted the list into numpy arrays for feeding to the model.
 
-The shape of data is (39209, 30, 30, 3) which means that there are 39,209 images of size 30×30 pixels and the last 3 means the data contains colored images (RGB value).
+The shape of data is `(39209, 30, 30, 3)` which means that there are `39,209` images of size `30×30` pixels and the last 3 means the data contains colored images (RGB value).
 
-With the sklearn package, I used the train_test_split() method to split training and testing data.
+With the sklearn package, I used the `train_test_split()` method to split training and testing data.
 
-From the keras.utils package, I used to_categorical method to convert the labels present in y_train and t_test into one-hot encoding.
+From the `keras.utils` package, I used `to_categorical` method to convert the labels present in `y_train` and `t_test` into one-hot encoding.
 
 
 .
 
-STEP - 2
-Building a CNN model
+**STEP - 2
+Building a CNN model**
 
 To classify the images into their respective categories, I built a CNN model (Convolutional Neural Network). CNN is best option for image classification purposes.
 
@@ -67,8 +67,8 @@ I then compiled the model with Adam optimizer which performs well and loss is �
 
 .
 
-STEP - 3
-Training and validating the model
+**STEP - 3
+Training and validating the model**
 
 After building the model architecture, I then trained the model using model.fit(). I tried with batch size 32 and 64. My model performed better with 64 batch size. And after 15 epochs the accuracy was stable.
 
@@ -83,13 +83,13 @@ II. Accuracy and Loss Graphs
 
 .
 
-STEP - 4
-Testing my model with test dataset
+**STEP - 4
+Testing my model with test dataset**
 
-My dataset had a test folder and in a test.csv file, it had the details related to the image path and their respective class labels. I extracted the image path and labels using pandas. Then to predict the model, I had to resize my images to 30×30 pixels and make a numpy array containing all image data. From the sklearn.metrics, I imported the accuracy_score and observed how my model predicted the actual labels. Thus I achieved a 95% accuracy in this model.
+My dataset had a test folder and in a `test.csv` file, it had the details related to the image path and their respective class labels. I extracted the image path and labels using pandas. Then to predict the model, I had to resize my images to `30×30` pixels and make a numpy array containing all image data. From the sklearn.metrics, I imported the `accuracy_score` and observed how my model predicted the actual labels. Thus I achieved a `95% accuracy in this model`.
 
 
-In the end, I saves the model that I’ve trained using the Keras model.save() function.
+In the end, I saves the model that I’ve trained using the Keras `model.save()` function.
 
 `model.save(‘traffic_classifier.h5’)`
 .
@@ -212,10 +212,10 @@ model.save(‘traffic_classifier.h5’)
 
 .
 ```
-Traffic Signs Classifier GUI
-Now I will show you how I built a graphical user interface for my traffic signs classifier with Tkinter. Tkinter is a GUI toolkit in the standard python library. I made a new file in the project folder and copied the below code. Saved it as gui.py and executed the code by typing python gui.py in the command line.
+###Traffic Signs Classifier GUI
+Now I will show you how I built a graphical user interface for my traffic signs classifier with Tkinter. Tkinter is a GUI toolkit in the standard python library. I made a new file in the project folder and copied the below code. Saved it as `gui.py` and executed the code by typing python `gui.py` in the command line.
 
-In this file, I first loaded the trained model ‘traffic_classifier.h5’ using Keras. And then I built the GUI for uploading the image and used a button to classify which calls the classify() function. The classify() function is converting the image into the dimension of shape (1, 30, 30, 3). This is because to predict the traffic sign I have to provide the same dimension I have used when I built the model. Then I predict the class, the model.predict_classes(image) returns me a number between (0-42) which represents the class it belongs to. I used the dictionary to get the information about the class. Here’s the code for the gui.py file.
+In this file, I first loaded the trained model `‘traffic_classifier.h5’` using Keras. And then I built the GUI for uploading the image and used a button to classify which calls the `classify()` function. The `classify()` function is converting the image into the dimension of shape `(1, 30, 30, 3)`. This is because to predict the traffic sign I have to provide the same dimension I have used when I built the model. Then I predict the class, the` model.predict_classes(image)` returns me a number between `(0-42)` which represents the class it belongs to. I used the dictionary to get the information about the class. Here’s the code for the gui.py file.
 
 CODE:
 ```
